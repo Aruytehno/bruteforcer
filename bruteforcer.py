@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from pip._vendor import requests
 
@@ -15,19 +16,41 @@ def my_function(x):
 
 
 if __name__ == '__main__':
-    lastR = open(os.getcwd() + "/grabber/last.txt", "r")
-    links = open(os.getcwd() + "/grabber/links.txt", "a")
+    if os.path.exists("download"):
+        print("Image upload folder: " + os.path.abspath("download"))
+    else:
+        print("Make upload folder")
+        Path("download").mkdir(parents=True, exist_ok=True)
+        print("Image upload folder: " + os.path.abspath("download"))
+
+    if os.path.exists("last.txt"):
+        print("last position in: " + os.path.abspath("download"))
+    else:
+        print("Make file last.txt")
+        fileLast = open("last.txt", "w")
+        fileLast.write("00000")
+        fileLast.close()
+
+    if os.path.exists("links.txt"):
+        print("links in: " + os.path.abspath("download"))
+    else:
+        print("Make file links.txt")
+        file = open("links.txt", "w")
+        file.close()
+
+    lastR = open("last.txt", "r")
+    links = open("links.txt", "a")
     name = str(lastR.read())
 
     while True:
         print(name)
-        lastW = open(os.getcwd() + "/grabber/last.txt", "w")
+        lastW = open(os.getcwd() + "/last.txt", "w")
         lastW.write(name)
         lastW.close()
         url = "https://s.micp.ru/" + name + ".jpg"
         response = requests.get(url)
         if str(response) == '<Response [200]>':
-            file = open(os.getcwd() + "/grabber/download/" + name + ".png", "wb")
+            file = open("download/" + name + ".png", "wb")
             links.write(url + str("\n"))
             file.write(response.content)
             file.close()
