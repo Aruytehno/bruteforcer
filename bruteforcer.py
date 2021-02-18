@@ -3,6 +3,7 @@ from pathlib import Path
 
 import requests
 
+
 def my_function(x):
     symbols = [*range(48, 58), *range(65, 91), *range(97, 123)]
     for s in enumerate(x):
