@@ -1,8 +1,7 @@
 import os
 from pathlib import Path
 
-from pip._vendor import requests
-
+import requests
 
 def my_function(x):
     symbols = [*range(48, 58), *range(65, 91), *range(97, 123)]
@@ -21,7 +20,6 @@ if __name__ == '__main__':
     else:
         print("Make upload folder")
         Path("download").mkdir(parents=True, exist_ok=True)
-        print("Image upload folder: " + os.path.abspath("download"))
 
     if os.path.exists("last.txt"):
         print("last position in: " + os.path.abspath("download"))
